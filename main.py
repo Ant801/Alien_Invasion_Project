@@ -8,9 +8,13 @@ class AlienInvasion:
     def __init__(self):
         """Initilise the game, and create game resources."""
         pygame.init() # Initilising the pygame atributes for it to work!
+        self.clock = pygame.time.Clock() # Using this to set a consistant framerate
 
         self.screen = pygame.display.set_mode((122, 800)) # Creates the screen with pixle size
         pygame.display.set_caption("Alien Invasion") # Title
+
+        # Set the background color.
+        self.bg_color = (0, 50, 0)
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -20,8 +24,12 @@ class AlienInvasion:
                 if event.type == pygame.QUIT:
                     sys.exit() # This handles the exit of the program
 
+            #Redraw the screen during each pass through the loop.
+            self.screen.fill(self.bg_color)
+
             # Make the most recently drawn screen visible.
             pygame.display.flip() # This produces the refreshed screen 
+            self.clock.tick(60) # 60fps
 
 if __name__ == '__main__':
     # Make a game instance, and run the game.
