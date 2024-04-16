@@ -14,7 +14,9 @@ class AlienInvasion:
         self.clock = pygame.time.Clock() # Using this to set a consistant framerate
         self.settings = Settings()
 
-        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height)) # Creates the screen with pixle size
+        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN) # Creates a full screen instead of pixle sized
+        self.settings.screen_width = self.screen.get_rect().width
+        self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Alien Invasion") # Title of window
 
         self.ship = Ship(self)
@@ -33,19 +35,21 @@ class AlienInvasion:
                 if event.type == pygame.QUIT:
                     sys.exit() # This handles the exit of the program
                 elif event.type == pygame.KEYDOWN:
-                    self._check_keydown_events(event)
+                    self._check_keydown_events_(event)
 
                 elif event.type == pygame.KEYUP:
                     self._check_keyup_events_(event)
                         
-    def _check_keydown_events_():
+    def _check_keydown_events_(self, event):
         """Respond to keypresses."""
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
+        elif event.key == pygame.K_q:
+            sys.exit()
 
-    def _check_keyup_events_():
+    def _check_keyup_events_(self, event):
         """Respond to key releases."""
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False
