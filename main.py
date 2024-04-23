@@ -19,9 +19,13 @@ class AlienInvasion:
         self.clock = pygame.time.Clock() # Using this to set a consistant framerate
         self.settings = Settings()
 
-        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN) # Creates a full screen instead of pixle sized
-        self.settings.screen_width = self.screen.get_rect().width
-        self.settings.screen_height = self.screen.get_rect().height
+        # Windowed mode
+        self.screen = pygame.display.set_mode((1200, 800))
+
+        # Creates a full screen instead of pixle sized
+        #self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+        #self.settings.screen_width = self.screen.get_rect().width
+        #self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Alien Invasion") # Title of window
 
         # Create an instance to store game statistics
@@ -89,6 +93,8 @@ class AlienInvasion:
         """Start a new game when the player clicks play."""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.game_active:
+            # Reset the game settings
+            self.settings.initialise_dynamic_settings()
             # Reset the game statistics
             self.stats.reset_stats()
             self.game_active = True
@@ -127,8 +133,10 @@ class AlienInvasion:
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, False, True) #True x2
 
         if not self.aliens:
+            # Destroy existing bullets and create new fleet
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increae_speed()
 
     def _update_aliens(self):
         """Check if the fleet is at an edge, then update the positions."""
