@@ -1,4 +1,4 @@
-import sys 
+import sys
 from time import sleep
 
 import pygame
@@ -55,10 +55,10 @@ class AlienInvasion:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
-                
+
            self._update_screen()
            self.clock.tick(60) # 60fps
-           
+
     def _check_events(self):
             """Respond to keypresses and mouse events"""
             for event in pygame.event.get():
@@ -73,7 +73,7 @@ class AlienInvasion:
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = pygame.mouse.get_pos()
                     self._check_play_button(mouse_pos)
-                        
+
     def _check_keydown_events_(self, event):
         """Respond to keypresses."""
         if event.key == pygame.K_RIGHT:
@@ -191,7 +191,7 @@ class AlienInvasion:
         new_alien.rect.x = X_position
         new_alien.rect.y = y_position
         self.aliens.add(new_alien)
-        
+
     def _check_fleet_edges(self):
         """Respond appropriately if any aliens have reached an edge."""
         for alien in self.aliens.sprites():
